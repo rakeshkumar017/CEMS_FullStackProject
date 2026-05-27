@@ -1,0 +1,12 @@
+<!-- navbar -->
+<nav class="navbar">
+  <a class="nav-logo" routerLink="/">College Events Portal</a>
+
+  <div class="nav-items">
+    <a routerLink="/" [class.active]="isActive('/')" class="nav-item">Home</a>
+    <a routerLink="/events" [class.active]="isActive('/events')" class="nav-item">Events</a>
+    <a routerLink="/register" [class.active]="isActive('/register')" class="nav-item">Register/Login</a>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

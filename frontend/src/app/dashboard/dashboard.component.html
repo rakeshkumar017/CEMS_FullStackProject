@@ -1,0 +1,65 @@
+<!-- Parent Component for Dashboard -->
+<div class="dashboard-container">
+  <!-- Shared Sidebar -->
+  <nav class="sidebar">
+    <h2>{{ role | titlecase }} Dashboard</h2>
+    
+    <ul>
+      <ng-container [ngSwitch]="role">
+        <ng-container *ngSwitchCase="'admin'">
+          <li [class.active]="activeSection === 'dashboard'"  (click)="activeSection='dashboard'">Dashboard</li>
+          <li [class.active]="activeSection === 'users'" (click)="activeSection='users'">User Management</li>
+          <li [class.active]="activeSection === 'events'" (click)="activeSection='events'">Event Management</li>
+          <li [class.active]="activeSection === 'logout'" (click)="handleLogout()">Logout</li>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'host'">
+          <li [class.active]="activeSection === 'create-event'"  (click)="activeSection='create-event'">Create Event</li>
+          <li [class.active]="activeSection === 'my-events'" (click)="activeSection='my-events'">My Events</li>
+          <li [class.active]="activeSection === 'profile'" (click)="activeSection='profile'">My Profile</li>
+          <li [class.active]="activeSection === 'logout'" (click)="handleLogout()">Logout</li>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'student'">
+          <li [class.active]="activeSection === 'upcoming-events'" (click)="activeSection='upcoming-events'">Upcoming Events</li>
+          <li [class.active]="activeSection === 'registered-events'" (click)="activeSection='registered-events'">My Registered Events</li>
+          <li [class.active]="activeSection === 'profile'" (click)="activeSection='profile'">My Profile</li>
+          <li [class.active]="activeSection === 'logout'" (click)="handleLogout()">Logout</li>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </nav>
+
+  <!-- Shared Main Content Wrapper -->
+  <div class="main-content">
+    <ng-container [ngSwitch]="role">
+      <app-admin-dashboard
+        *ngSwitchCase="'admin'"
+        [adminName]="userName"
+        [activeSection]="activeSection">
+      </app-admin-dashboard>
+
+      <app-host-dashboard
+        *ngSwitchCase="'host'"
+        [hostName]="userName"
+        [hostEmail]="userEmail"
+        [activeSection]="activeSection"
+        (sectionChange)="activeSection = $event">
+      </app-host-dashboard>
+
+      <app-student-dashboard
+        *ngSwitchCase="'student'"
+        [studentName]="userName"
+        [studentEmail]="userEmail"
+        [activeSection]="activeSection"
+        (sectionChange)="activeSection = $event">
+      </app-student-dashboard>
+    </ng-container>
+
+    <!-- Global Logout Section -->
+    <div *ngIf="activeSection === 'logout'" class = "logout">
+      <h2>Logging Out...</h2>
+      <p>Redirecting to login page...</p>
+    </div>
+  </div>
+</div>

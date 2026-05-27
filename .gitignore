@@ -1,0 +1,49 @@
+# ===========================
+# 🔐 Security / Secrets
+# ===========================
+*.env
+*.key
+*.pem
+*.crt
+*.p12
+application-secret.properties
+
+# ===========================
+# 📦 Dependencies
+# ===========================
+backend/node_modules/
+frontend/node_modules/
+
+# ===========================
+# 🏗️ Build Outputs
+# ===========================
+frontend/dist/
+frontend/.angular/cache/
+backend/build/
+backend/target/
+
+# ===========================
+# 🧪 Testing / Coverage
+# ===========================
+coverage/
+*.lcov
+
+# ===========================
+# ⚙️ IDE / Editor Files
+# ===========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.log
+
+# ===========================
+# 🚀 OS / Temp Files
+# ===========================
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp

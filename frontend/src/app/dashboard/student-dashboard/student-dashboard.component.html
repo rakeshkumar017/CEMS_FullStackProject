@@ -1,0 +1,72 @@
+<!-- Student Dashboard Component -->
+<div class="main-content">
+  <h1>Welcome, {{ studentName | titlecase }}!</h1>
+  <p>Manage your events and profile easily.</p>
+
+  <!-- Upcoming Events Section -->
+  <div *ngIf="activeSection === 'upcoming-events'">
+    <h2>Upcoming Events</h2>
+    <div class="events-grid">
+      <div *ngFor="let event of events" class="event-card">
+        <img [src]="event.image" [alt]="event.title" class="event-img">
+        <div class="event-info">
+          <h3>{{ event.title }}</h3>
+          <p><strong>Date:</strong> {{ event.date }}</p>
+          <p>{{ event.description }}</p>
+          <button class="btn" (click)="registerForEvent(event.id)" [disabled]="isRegistered(event)">
+            {{ isRegistered(event) ? 'Registered' : 'Register' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registered Events Section -->
+  <div *ngIf="activeSection === 'registered-events'">
+    <h2>My Registered Events</h2>
+    <div *ngIf="registeredEvents.length === 0" class="no-events">
+      <p>You haven't registered for any events yet.</p>
+    </div>
+    <div *ngIf="registeredEvents.length > 0" class="events-grid">
+      <div *ngFor="let event of registeredEvents" class="event-card">
+        <img [src]="event.image" [alt]="event.title" class="event-img">
+        <div class="event-info">
+          <h3>{{ event.title }}</h3>
+          <p><strong>Date:</strong> {{ event.date }}</p>
+          <p>{{ event.description }}</p>
+          <button class="btn btn-danger" (click)="unregister(event.id)">Unregister</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Section -->
+  <div *ngIf="activeSection === 'profile'">
+    <h2>My Profile</h2>
+    <div class="profile-info">
+      <p><strong>Name:</strong> {{ studentName }}</p>
+      <p><strong>Email:</strong> {{ studentEmail }}</p>
+
+      <div *ngIf="!isEditingProfile">
+        <p><strong>Department:</strong> {{ studentDept }}</p>
+        <p><strong>Roll Number:</strong> {{ studentRoll }}</p>
+        <button class="btn" (click)="toggleEditProfile()">Edit Profile</button>
+      </div>
+
+      <div *ngIf="isEditingProfile" class="edit-profile-form">
+        <div class="form-group">
+          <label for="department">Department:</label>
+          <input type="text" id="department" [(ngModel)]="studentDept">
+        </div>
+        <div class="form-group">
+          <label for="rollNumber">Roll Number:</label>
+          <input type="text" id="rollNumber" [(ngModel)]="studentRoll">
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-save" (click)="saveProfile()">Save</button>
+          <button class="btn btn-cancel" (click)="toggleEditProfile()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

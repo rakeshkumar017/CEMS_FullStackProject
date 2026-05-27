@@ -1,0 +1,81 @@
+/* general styles */
+.events-container {
+    width: 100%;
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(to right, #151f31, #253e5c);
+    color: white;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Events Grid */
+.events-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Event Cards */
+.event-card {
+    background: #fff;
+    color: #333;
+    width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.event-card:hover {
+    transform: scale(1.05);
+}
+
+/* Event Images */
+.event-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Event Info */
+.event-info {
+    padding: 20px;
+}
+
+.event-info h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.event-info p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Learn More Button */
+.btn {
+    display: inline-block;
+    background: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background: #cc0000;
+    transform: scale(1.1);
+}

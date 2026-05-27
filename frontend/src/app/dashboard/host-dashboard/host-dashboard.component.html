@@ -1,0 +1,71 @@
+<!-- Host Dashboard Content -->
+<div class="main-content">
+  <h1>Welcome, {{ hostName }}!</h1>
+  <p>Manage your events and profile easily.</p>
+
+  <!-- Create Event Section -->
+  <div *ngIf="activeSection === 'create-event'">
+    <h2>Create New Event</h2>
+    <form #createEvent="ngForm" (ngSubmit)="createNewEvent(createEvent.value)" novalidate>
+      <label>
+        <span>Event Title:</span>
+        <input type="text" name="title" [(ngModel)]="newEvent.title" placeholder="event title...">
+      </label>
+
+      <label>
+        <span>Date:</span>
+        <input type="date" name="date" [(ngModel)]="newEvent.date">
+      </label>
+
+      <label>
+        <span>Description:</span>
+        <textarea name="description" [(ngModel)]="newEvent.description" placeholder="write message..."></textarea>
+      </label>
+
+      <label>
+        <span>Image URL:</span>
+        <input type="text" name="image" [(ngModel)]="newEvent.image" placeholder="paste image url">
+      </label>
+
+      <button type="submit">Create Event</button>
+    </form>
+  </div>
+
+  <!-- My Events Section -->
+  <div *ngIf="activeSection === 'my-events'">
+    <h2>My Events</h2>
+    <div *ngFor="let event of hostEvents" class="event-card">
+      <div>
+        <img [src]="event.image" [alt]="event.title" class="event-img">
+        <div class="event-info1">
+          <h3>{{ event.title }}</h3>
+          <p><strong>Date:</strong> {{ event.date | date }}</p>
+          <p>{{ event.description }}</p>
+          <h4>Registrations ({{ eventRegistrations[event.id]?.length || 0 }}):</h4>
+          <button (click)="deleteEvents(event)" [disabled]="!event.is_approved"
+              [ngClass]="{'pending-btn': !event.is_approved, 'delete-btn': event.is_approved}">
+            {{ event.is_approved ? 'Delete Event' : 'Pending' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="event-info">
+        <h2>Registered Students details: </h2>
+        <ul>
+          <li *ngFor="let registration of eventRegistrations[event.id]">
+             {{ registration.studentName }} - {{ registration.studentEmail }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Section -->
+  <div *ngIf="activeSection === 'profile'">
+    <h2>My Profile</h2>
+    <div class="profile-info">
+      <p><strong>Name:</strong> {{ hostName }}</p>
+      <p><strong>Email:</strong> {{ hostEmail }}</p>
+    </div>
+  </div>
+</div>

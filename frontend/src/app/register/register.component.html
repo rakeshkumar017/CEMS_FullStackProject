@@ -1,0 +1,33 @@
+<div class="auth-container">
+  <h2 *ngIf="isSignUp; else loginTitle">Register</h2>
+  <ng-template #loginTitle><h2>Login</h2></ng-template>
+
+  <!-------------------- Sign Up Form -------------------->
+  <form *ngIf="isSignUp; else loginForm" #formSignUp="ngForm" (ngSubmit)="signUp(formSignUp.value)">
+    <input class="form-input" type="text" placeholder="Enter User Name" name="name" ngModel>
+    <input class="form-input" type="email" placeholder="Enter User Email" name="email" ngModel>
+    <input class="form-input" type="password" placeholder="Enter password" name="password" ngModel>
+
+    <select class="form-select" name="role" ngModel>
+      <option value="" disabled selected>Select Role</option>
+      <option value="Student">Student</option>
+      <option value="Host">Host</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+
+    <button type="submit" class="form-button">Register</button>
+  </form>
+
+  <!-------------------- Login Form -------------------->
+  <ng-template #loginForm>
+    <form #userLogin="ngForm" (ngSubmit)="login(userLogin.value)">
+      <input class="form-input" type="email" placeholder="Enter User Email" name="email" ngModel>
+      <input class="form-input" type="password" placeholder="Enter password" name="password" ngModel>
+
+      <button type="submit" class="form-button">Login</button>
+    </form>
+  </ng-template>
+
+  <!------------ Toggle form ------------------>
+  <p>{{ message }} <a class="blue-button" (click)="toggleForm()">{{ anchorText }}</a></p>
+</div>

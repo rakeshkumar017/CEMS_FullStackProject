@@ -1,0 +1,106 @@
+<!-- Admin Dashboard Content -->
+<div class="main-content">
+  <h1>Welcome, {{ adminName | titlecase }}!</h1>
+  <p>Guiding the system, empowering every user.</p>
+
+  <!-- Dashboard Overview -->
+  <div *ngIf="activeSection === 'dashboard'">
+    <h2>Overview</h2>
+    <div class="stats-container">
+      <div class="stat-card">
+        <h3>Total Users</h3>
+        <p>{{ users.length }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Events</h3>
+        <p>{{ events.length }}</p>
+      </div>
+    </div>
+
+    <!-- Pending Events -->
+    
+    <div class="pending-events">
+      <h3>Pending Events for Approval</h3>
+      <p *ngIf="pendingEvents.length === 0">No pending events at the moment.</p>
+
+      <table *ngIf="pendingEvents.length > 0">
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Host_email</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let event of pendingEvents">
+        <td>{{ event.title }}</td>
+        <td>{{ event.date | date }}</td>
+        <td>{{ event.host_email }}</td>
+        <td>{{ event.description }}</td>
+        <td>
+          <button class="" (click)="approve(event.id)">pending</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- User Management -->
+  <div *ngIf="activeSection === 'users'">
+    <h2>User Management</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Roll No</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.department || "not-specified" }}</td>
+          <td>{{ user.roll_number || "not-available" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Event Management -->
+  <div *ngIf="activeSection === 'events'">
+    <h2>Event Management</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Host</th>
+          <th>Registrations</th>
+          <th>Reg-Student-Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.title }}</td>
+          <td>{{ event.date | date }}</td>
+          <td>{{ event.host_email }}</td>
+          <td>{{ eventRegistrationCount[event.id] || 0 }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let registration of eventRegistrations[event.id]">
+                {{ registration.studentName }} - {{ registration.studentEmail }}
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

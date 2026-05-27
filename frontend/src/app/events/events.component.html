@@ -1,0 +1,26 @@
+<!-- Upcoming Events -->
+<div class="events-container">
+  <h1 class="section-title">Upcoming Events</h1>
+
+  <p *ngIf="loading">Loading events...</p>
+  <div *ngIf="!loading && events?.length === 0">No events available</div>
+
+  <div class="events-grid" *ngIf="events.length > 0">
+    <div class="event-card" *ngFor="let event of events">
+
+      <img [src]="event.image || 'assets/default.png'" [alt]="event.title"class="event-img">
+
+      <div class="event-info">
+        <h2>{{event.title}}</h2>
+
+        <p><strong>Date:</strong> {{event.date | date:'mediumDate'}}</p>
+        <p>{{event.description}}</p>
+        <p><strong>Registrations:</strong>{{ eventRegistrations[event.id]}}</p>
+
+        <button class="btn">Learn More</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
